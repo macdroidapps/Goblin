@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_email_tf">Логин</string>
+    <string name="login_password_tf">Пароль</string>
+    <string name="login_button_text">Войти</string>
+    <string name="smart_ro_title">SmartRO</string>
+</resources>

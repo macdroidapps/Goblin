@@ -1,11 +1,13 @@
 plugins {
-    id ("com.android.application")
-    id ("org.jetbrains.kotlin.android")
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
-    namespace = Config.packageName
-    compileSdkVersion(Config.compileSdk)
+
+    compileSdk = Config.compileSdk
 
     defaultConfig {
         applicationId = Config.packageName
@@ -47,17 +49,76 @@ android {
 }
 
 dependencies {
-    val compose_ui_version = "1.2.0"
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
-    implementation("androidx.activity:activity-compose:1.3.1")
-    implementation("androidx.compose.ui:ui:$compose_ui_version")
-    implementation("androidx.compose.ui:ui-tooling-preview:$compose_ui_version")
-    implementation("androidx.compose.material:material:1.2.0")
-    testImplementation ("junit:junit:4.13.2")
-    androidTestImplementation ("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation ("androidx.compose.ui:ui-test-junit4:$compose_ui_version")
-    debugImplementation ("androidx.compose.ui:ui-tooling:$compose_ui_version")
-    debugImplementation ("androidx.compose.ui:ui-test-manifest:$compose_ui_version")
+
+    implementation(project(Modules.login_feature))
+
+    //Compose
+    implementation(Compose.compiler)
+    implementation(Compose.ui)
+    implementation(Compose.material)
+    implementation(Compose.uiToolingPreview)
+    implementation(Compose.uiTooling)
+    implementation(Compose.accompanist)
+    implementation(Compose.navigation)
+    implementation(Compose.livedata)
+
+    //Hilt
+    implementation(Hilt.android)
+    implementation(Hilt.navigation)
+    kapt(Hilt.compiler)
+
+    // Retrofit
+    implementation(Retrofit.okHttp)
+    implementation(Retrofit.retrofit)
+    implementation(Retrofit.okHttpLoggingInterceptor)
+    implementation(Retrofit.converteGson)
+
+    // Coil
+    implementation(Coil.coilCompose)
+
+    //Room
+    kapt(Room.roomCompiler)
+    implementation(Room.roomKtx)
+    implementation(Room.roomRuntime)
+
+    // -- Lifecycle Components (ViewModel, LiveData and ReactiveStreams)
+    implementation(LyfeCycle.lifecycleRuntime)
+    implementation(LyfeCycle.lifecycleRuntimeKtx)
+    implementation(LyfeCycle.lifecycleViewmodel)
+    implementation(LyfeCycle.lifecycleViewmodelKtx)
+    implementation(LyfeCycle.lifecycleLivedata)
+
+    // Coroutines
+    implementation(Coroutines.coroutinesCore)
+    implementation(Coroutines.coroutinesAndroid)
+    implementation(Coroutines.coroutinesLyfeCycleScope)
+
+    //Tests
+
+    testImplementation(Testing.composeUiTest)
+    debugImplementation(Testing.testManifest)
+
+
+    testImplementation(Testing.junit4)
+//    testImplementation(Testing.junitAndroidExt)
+//    testImplementation(Testing.truth)
+//    testImplementation(Testing.coroutines)
+//    testImplementation(Testing.turbine)
+//
+//    testImplementation(Testing.mockk)
+//    testImplementation(Testing.mockWebServer)
+//
+    androidTestImplementation(Testing.junit4)
+//    androidTestImplementation(Testing.junitAndroidExt)
+//    androidTestImplementation(Testing.truth)
+//    androidTestImplementation(Testing.coroutines)
+//    androidTestImplementation(Testing.turbine)
+    androidTestImplementation(Testing.composeUiTest)
+//    androidTestImplementation(Testing.mockkAndroid)
+//    androidTestImplementation(Testing.mockWebServer)
+//    androidTestImplementation(Testing.hiltTesting)
+//    kaptAndroidTest(Hilt.compiler)
+//    androidTestImplementation(Testing.testRunner)
+//
+    debugImplementation(Compose.uiTooling)
 }

@@ -16,3 +16,5 @@ dependencyResolutionManagement {
 rootProject.name = "Goblin"
 
 include (":app")
+include(":features:login_feature")
+include(":core")

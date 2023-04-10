@@ -1,0 +1,85 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-parcelize'
+
+android {
+
+    compileSdk Config.compileSdk
+
+    defaultConfig {
+        minSdk Config.minSDK
+        targetSdk Config.targetSDK
+        versionCode Config.versionCode
+        versionName Config.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion Compose.composeCompilerVersion
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation(Compose.compiler)
+    implementation(Compose.ui)
+    implementation(Compose.material)
+    implementation(Compose.navigation)
+    implementation(Compose.uiToolingPreview)
+    implementation(Compose.uiTooling)
+    implementation(Compose.accompanist)
+    implementation(Compose.livedata)
+
+    kapt Hilt.compiler
+    implementation Hilt.android
+    implementation Hilt.navigation
+
+    implementation Retrofit.okHttp
+    implementation Retrofit.retrofit
+    implementation Retrofit.okHttpLoggingInterceptor
+    implementation Retrofit.gson
+    implementation Retrofit.converteGson
+
+    implementation Coroutines.coroutinesCore
+    implementation Coroutines.coroutinesAndroid
+    implementation Coroutines.coroutinesLyfeCycleScope
+
+    testImplementation Testing.junit4 
+    testImplementation Testing.junitAndroidExt 
+    testImplementation Testing.truth 
+    testImplementation Testing.coroutines 
+    testImplementation Testing.turbine 
+    testImplementation Testing.composeUiTest
+    testImplementation Testing.mockk
+    testImplementation Testing.mockWebServer 
+
+    androidTestImplementation Testing.junit4 
+    androidTestImplementation Testing.junitAndroidExt 
+    androidTestImplementation Testing.truth 
+    androidTestImplementation Testing.coroutines 
+    androidTestImplementation Testing.turbine 
+    androidTestImplementation Testing.composeUiTest
+    androidTestImplementation Testing.mockk
+    androidTestImplementation Testing.mockWebServer 
+    androidTestImplementation Testing.hiltTesting 
+}
